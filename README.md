@@ -17,9 +17,11 @@ boltdbweb --db-name=<DBfilename>[required] --port=<port>[optional] --static-path
 - `--static-path:` If you moved the binary to different folder you can determin the path of the `web` folder. (Default: Same folder where the binary is located.)
 
 #### generate web_static.go
+go to root dir of this repo, run:
 
+```
 go-bindata-assetfs -o web_static.go web/...
-
+```
 ##### Example
 ```
 boltdbweb --db-name=test.db --port=8089 --static-path=/home/user/github/boltdbweb
