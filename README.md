@@ -25,11 +25,3 @@ go-bindata-assetfs -o web_static.go web/...
 boltdbweb --db-name=test.db --port=8089 --static-path=/home/user/github/boltdbweb
 ```
 Goto: http://localhost:8089
-
-##### Screenshots:
-
-![](https://github.com/evnix/boltdbweb/blob/master/screenshots/1.png?raw=true)
-
-![](https://github.com/evnix/boltdbweb/blob/master/screenshots/2.png?raw=true)
-
-![](https://github.com/evnix/boltdbweb/blob/master/screenshots/3.png?raw=true)
