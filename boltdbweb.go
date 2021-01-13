@@ -15,11 +15,10 @@ import (
 	"path"
 	"time"
 
-	"github.com/evnix/boltdbweb/web"
 	"github.com/gin-gonic/gin"
-
+	boltbrowserweb "github.com/newlife/boltdbweb/web"
 	log "github.com/sirupsen/logrus"
-	"github.com/boltdb/bolt"
+	bolt "go.etcd.io/bbolt"
 )
 
 const version = "v0.0.0"
@@ -111,6 +110,7 @@ func main() {
 	r.POST("/deleteBucket", boltbrowserweb.DeleteBucket)
 	r.POST("/prefixScan", boltbrowserweb.PrefixScan)
 
+	//	r.StaticFS("/web", http.Dir("./web"))
 	r.StaticFS("/web", assetFS())
 
 	r.Run(":" + port)

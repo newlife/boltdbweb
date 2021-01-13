@@ -16,6 +16,9 @@ boltdbweb --db-name=<DBfilename>[required] --port=<port>[optional] --static-path
 - `--port:` Port for listening on... (Default: 8080)
 - `--static-path:` If you moved the binary to different folder you can determin the path of the `web` folder. (Default: Same folder where the binary is located.)
 
+#### generate web_static.go
+
+go-bindata-assetfs -o web_static.go web/...
 
 ##### Example
 ```

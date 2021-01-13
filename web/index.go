@@ -3,8 +3,9 @@ package boltbrowserweb
 import (
 	"bytes"
 	"fmt"
-	"github.com/boltdb/bolt"
+
 	"github.com/gin-gonic/gin"
+	bolt "go.etcd.io/bbolt"
 )
 
 var Db *bolt.DB
@@ -41,13 +42,10 @@ func DeleteBucket(c *gin.Context) {
 
 	Db.Update(func(tx *bolt.Tx) error {
 		err := tx.DeleteBucket([]byte(c.PostForm("bucket")))
-
 		if err != nil {
-
 			c.String(200, "error no such bucket | n")
 			return fmt.Errorf("bucket: %s", err)
 		}
-
 		return nil
 	})
 
@@ -56,16 +54,13 @@ func DeleteBucket(c *gin.Context) {
 }
 
 func DeleteKey(c *gin.Context) {
-
 	if c.PostForm("bucket") == "" || c.PostForm("key") == "" {
 		c.String(200, "no bucket name or key | n")
 	}
 
 	Db.Update(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucketIfNotExists([]byte(c.PostForm("bucket")))
-		b = b
 		if err != nil {
-
 			c.String(200, "error no such bucket | n")
 			return fmt.Errorf("bucket: %s", err)
 		}
@@ -93,13 +88,11 @@ func Put(c *gin.Context) {
 
 	Db.Update(func(tx *bolt.Tx) error {
 		b, err := tx.CreateBucketIfNotExists([]byte(c.PostForm("bucket")))
-		b = b
 		if err != nil {
 
 			c.String(200, "error  creating bucket | n")
 			return fmt.Errorf("create bucket: %s", err)
 		}
-
 		err = b.Put([]byte(c.PostForm("key")), []byte(c.PostForm("value")))
 
 		if err != nil {
@@ -130,25 +123,16 @@ func Get(c *gin.Context) {
 		b := tx.Bucket([]byte(c.PostForm("bucket")))
 
 		if b != nil {
-
 			v := b.Get([]byte(c.PostForm("key")))
-
 			res[0] = "ok"
 			res[1] = string(v)
-
 			fmt.Printf("Key: %s\n", v)
-
 		} else {
-
 			res[1] = "error opening bucket| does it exist? | n"
-
 		}
 		return nil
-
 	})
-
 	c.JSON(200, res)
-
 }
 
 type Result struct {
