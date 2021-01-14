@@ -4,6 +4,8 @@ import (
 	"bytes"
 	"fmt"
 
+	log "github.com/sirupsen/logrus"
+
 	"github.com/gin-gonic/gin"
 	bolt "go.etcd.io/bbolt"
 )
@@ -11,9 +13,8 @@ import (
 var Db *bolt.DB
 
 func Index(c *gin.Context) {
-
-	c.Redirect(301, "/web/html/layout.html")
-
+	log.Info("in index..")
+	c.Redirect(301, "/web/html/bucket.html")
 }
 
 func CreateBucket(c *gin.Context) {
@@ -220,6 +221,7 @@ func PrefixScan(c *gin.Context) {
 }
 
 func Buckets(c *gin.Context) {
+	log.Info("in index..111")
 
 	res := []string{}
 

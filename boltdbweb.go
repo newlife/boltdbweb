@@ -11,6 +11,7 @@ package main
 import (
 	"flag"
 	"fmt"
+	"net/http"
 	"os"
 	"path"
 	"time"
@@ -81,7 +82,7 @@ func main() {
 	}
 
 	fmt.Print(" ")
-	log.Info("starting boltdb-browser..")
+	log.Info("starting boltdb-browser..1111")
 
 	var err error
 	db, err = bolt.Open(dbName, 0600, &bolt.Options{Timeout: 2 * time.Second})
@@ -110,8 +111,8 @@ func main() {
 	r.POST("/deleteBucket", boltbrowserweb.DeleteBucket)
 	r.POST("/prefixScan", boltbrowserweb.PrefixScan)
 
-	//	r.StaticFS("/web", http.Dir("./web"))
-	r.StaticFS("/web", assetFS())
+	r.StaticFS("/web", http.Dir("./web"))
+	//r.StaticFS("/web", assetFS())
 
 	r.Run(":" + port)
 }
